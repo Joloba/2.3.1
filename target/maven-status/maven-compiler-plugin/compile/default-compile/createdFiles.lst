@@ -1,0 +1,7 @@
+web\dao\UserDaoHibernateImpl.class
+web\config\AppInit.class
+web\config\PersistenceJPAConfig.class
+web\config\WebConfig.class
+web\controller\UserController.class
+web\dao\UserDao.class
+web\model\User.class
