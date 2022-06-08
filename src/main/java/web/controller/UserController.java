@@ -6,51 +6,48 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.dao.UserDao;
 import web.model.User;
+import web.service.UserService;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
-    @GetMapping("/")
-    public String start() {
-        return "redirect:/users";
-    }
-
-    @GetMapping("/users")
+    @GetMapping
     public String showUsers(Model model) {
-        model.addAttribute("users", userDao.getAllUser());
+        model.addAttribute("users", userService.getAllUser());
         return "index";
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public String createUser(@ModelAttribute("user") User user) {
-        userDao.saveUser(user);
+        userService.saveUser(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         return "new";
     }
 
-    @GetMapping("/users/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userDao.getUserById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     public String editUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
-        userDao.editUser(id, user);
+        userService.editUser(id, user);
         return "redirect:/users";
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") long id) {
-        userDao.deleteUser(id);
+        userService.deleteUser(id);
         return "redirect:/users";
     }
 }
