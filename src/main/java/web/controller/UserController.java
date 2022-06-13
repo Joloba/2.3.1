@@ -40,8 +40,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
-        userService.editUser(id, user);
+    public String editUser(@ModelAttribute("user") User user) {
+        userService.editUser(user);
         return "redirect:/users";
     }
 
